@@ -1,1 +1,0 @@
-# veri-tabani-yonetim-sistemleri
