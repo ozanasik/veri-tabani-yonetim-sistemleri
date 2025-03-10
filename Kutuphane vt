@@ -1,0 +1,49 @@
+--create database Kutuphane; bir kez database oluşturulurken çalıştırılır
+
+use Kutuphane
+create table Adresler(
+adres_no int not null identity(1,1) Primary Key ,
+sehir nvarchar (100),
+cadde nvarchar (100),
+mahalle nvarchar (100),
+bina_no int, 
+posta_kodu int,
+ulke nvarchar (100)
+);
+
+use Kutuphane
+create table uyeler(
+uye_no int not null identity(1,1) Primary Key,
+uye_ad nvarchar(50) not null,
+uye_soyad nvarchar(50) not null,
+uye_eposta nvarchar(100) ,
+uye_cinsiyet char (2) ,
+uye_telefon nvarchar (100) ,
+adres_no int Foreign Key (adres_no) REFERENCES Adresler(adres_no)
+);
+
+use Kutuphane;
+create table kutuphane_tablo(
+kutuphane_no int not null identity(1,1) primary key,
+kutuphane_ismi nvarchar(100),
+aciklama nvarchar (150),
+adres_no int Foreign Key (adres_no) REFERENCES Adresler(adres_no)
+);
+
+use Kutuphane
+create table Kitaplar(
+isbn int not null primary key,
+kitap_adi nvarchar (100),
+sayfa_sayisi int,
+yayin_tarihi nvarchar (100)
+);
+
+use Kutuphane
+create table emanet(
+emanet_no int not null identity(1,1) primary key,
+emanet_tarihal int,
+emanet_tarihver int,
+uye_no int Foreign Key REFERENCES uyeler(uye_no),
+kutuphane_no int Foreign  Key REFERENCES kutuphane_tablo(kutuphane_no),
+isbn int not null Foreign Key REFERENCES Kitaplar(isbn)
+);
