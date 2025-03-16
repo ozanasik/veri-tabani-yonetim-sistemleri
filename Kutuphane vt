@@ -47,3 +47,45 @@ uye_no int Foreign Key REFERENCES uyeler(uye_no),
 kutuphane_no int Foreign  Key REFERENCES kutuphane_tablo(kutuphane_no),
 isbn int not null Foreign Key REFERENCES Kitaplar(isbn)
 );
+
+use Kutuphane;
+create table Yazarlar(
+yazar_no int identity(1,1) primary key,
+yazar_adi nvarchar (100),
+yazar_soyadi nvarchar (100)
+);
+
+use Kutuphane;
+create table Kategori(
+kategori_no int identity(1,1) primary key,
+kategori_adi nvarchar (100)
+);
+
+use Kutuphane;
+create table kitap_kategori(
+kategori_no int,
+isbn int,
+primary key (kategori_no,isbn),
+foreign key (kategori_no) REFERENCES Kategori(kategori_no),
+foreign key (isbn) REFERENCES Kitaplar(isbn)
+);
+
+use Kutuphane;
+create table kitap_kutuphane_tablo(
+isbn int,
+kutuphane_no int,
+primary key (isbn,kutuphane_no),
+foreign key (isbn) REFERENCES Kitaplar(isbn),
+foreign key (kutuphane_no) REFERENCES kutuphane_tablo(kutuphane_no)
+);
+
+use Kutuphane;
+create table kitap_yazar(
+isbn int,
+yazar_no int,
+primary key (isbn, yazar_no),
+foreign key (isbn) REFERENCES Kitaplar(isbn),
+foreign key (yazar_no) REFERENCES Yazarlar(yazar_no)
+);
+
+
